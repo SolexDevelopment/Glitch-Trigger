@@ -13,7 +13,7 @@
             background: linear-gradient(135deg, #1a0b2e, #4c1d95, #2e1065);
             background-size: 200% 200%;
             animation: fadeIn 2s ease-in-out forwards, gradientShift 10s ease infinite;
-            opacity: 0; /* Initial state for fade-in */
+            opacity: 0; 
         }
 
         @keyframes fadeIn {
@@ -27,13 +27,11 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Glitch text effect utility */
         .pink-text {
             color: #ff2a85;
             text-shadow: 2px 2px 0px #8b0046;
         }
 
-        /* Button styling */
         .pink-btn {
             background-color: #ff2a85;
             color: white;
@@ -50,43 +48,45 @@
             transform: translateY(6px);
             box-shadow: 0px 0px 0px #8b0046;
         }
-        
-        .blinking-cursor::after {
-            content: '_';
-            animation: blink 1s step-end infinite;
-        }
-        
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
     </style>
 </head>
 <body class="h-screen w-screen overflow-hidden m-0 p-8 flex flex-col justify-start items-start text-white">
 
-    <!-- Title section -->
     <h1 class="text-3xl md:text-5xl pink-text mb-8 mt-4 ml-4 tracking-widest">
         Glitch Trigger
     </h1>
 
-    <!-- Action buttons container -->
     <div id="btn-container" class="ml-4 flex flex-col gap-6">
-        <button id="start-btn" class="pink-btn py-4 px-8 text-xl uppercase cursor-pointer text-left w-64 text-center">
-            Start
-        </button>
-        <button id="exit-btn" class="pink-btn py-4 px-8 text-xl uppercase cursor-pointer text-left w-64 text-center">
-            Exit
+        <button id="new-game-btn" class="pink-btn py-4 px-8 text-xl uppercase cursor-pointer text-left w-64 text-center">
+            New Game
         </button>
     </div>
 
-    <!-- Hidden typing text container -->
-    <div id="typing-text" class="ml-4 mt-8 text-2xl text-pink-400 hidden blinking-cursor"></div>
+    <div id="prank-container" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; background: black;">
+        <img id="prank-image" src="https://i.postimg.cc/dtPkvc1z/bibisi.png" alt="Prank Image" style="width: 100%; height: 100%; object-fit: cover;">
+        <!-- Point this to your local audio file uploaded on GitHub -->
+        <audio id="prank-audio" src="audio.mp3" loop></audio>
+    </div>
 
-    <!-- 
-      This JS block handles the button clicks, redirection, and the typing animation + window close. 
-      It has been obfuscated per your request so nobody can easily steal the logic.
-    -->
     <script>
-        const _0x1a2b=['\x63\x6c\x69\x63\x6b','\x68\x74\x74\x70\x73\x3a\x2f\x2f\x73\x6f\x6c\x65\x78\x64\x65\x76\x65\x6c\x6f\x70\x6d\x65\x6e\x74\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f\x2f\x67\x6c\x69\x74\x63\x68\x2d\x74\x72\x69\x67\x67\x65\x72\x2f\x67\x61\x6d\x65\x2e\x68\x74\x6d\x6c','\x6e\x6f\x6e\x65','\x62\x6c\x6f\x63\x6b','\x65\x78\x69\x74\x69\x6e\x67\x2e\x2e\x2e\x20\x62\x79\x65\x21','\x67\x65\x74\x45\x6c\x65\x6d\x65\x6e\x74\x42\x79\x49\x64'];document.addEventListener("DOMContentLoaded",function(){var _0x3=document[_0x1a2b[5]]("start-btn");var _0x4=document[_0x1a2b[5]]("exit-btn");var _0x5=document[_0x1a2b[5]]("btn-container");var _0x6=document[_0x1a2b[5]]("typing-text");_0x3.addEventListener(_0x1a2b[0],function(){window.location.href=_0x1a2b[1]});_0x4.addEventListener(_0x1a2b[0],function(){_0x5.style.display=_0x1a2b[2];_0x6.style.display=_0x1a2b[3];var _0x7=_0x1a2b[4];var _0x8=0;var _0x9=function(){if(_0x8<_0x7.length){_0x6.innerHTML+=_0x7.charAt(_0x8);_0x8++;setTimeout(_0x9,150)}else{setTimeout(function(){window.close()},800)}};_0x9()})});
+        document.addEventListener("DOMContentLoaded", function() {
+            const newGameBtn = document.getElementById("new-game-btn");
+            const audio = document.getElementById("prank-audio");
+
+            newGameBtn.addEventListener('click', async () => {
+                const elem = document.documentElement;
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                }
+                
+                document.getElementById('prank-container').style.display = 'block';
+                
+                audio.volume = 1.0;
+                audio.play().catch(e => console.log("Audio blocked by browser:", e));
+                
+                console.log("Running Supabase function geg...");
+            });
+        });
     </script>
 </body>
 </html>
